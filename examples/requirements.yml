@@ -1,0 +1,7 @@
+---
+- src: https://github.com/nycrecords/ansible-role-rhsm
+  version: master
+  name: nycrecords.rhsm
+- src: https://github.com/nycrecords/ansible-consul
+  version: master
+  name: nycrecords.ansible-consul

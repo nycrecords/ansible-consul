@@ -8,6 +8,7 @@
 # to do utility work for handling corner cases in different boxes and
 # operating systems, such as installing Python on official FreeBSD boxes, etc.
 #
+
 $script = <<SCRIPT
 check_os () {
   PLATFORM="unknown"
@@ -111,7 +112,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         provisioner.add_host '10.1.42.220', ['consul2.consul']
         provisioner.add_host '10.1.42.230', ['consul3.consul']
     end
-    consul2_config.vm.provision "shell", inline: $script
+    consul1_config.vm.provision "shell", inline: $script
   end
   config.vm.define :consul3 do |consul3_config|
     consul3_config.vm.box = BOX_NAME
@@ -137,8 +138,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         provisioner.add_host '10.1.42.220', ['consul2.consul']
         provisioner.add_host '10.1.42.230', ['consul3.consul']
     end
-    consul3_config.vm.provision "shell", inline: $script
+    consul1_config.vm.provision "shell", inline: $script
     consul3_config.vm.provision :ansible do |ansible|
+      ansible.raw_arguments = ["--connection=paramiko"]
       ansible.inventory_path = CLUSTER_HOSTS
       # As if variable related things in Ansible couldn't be more exciting,
       # extra Ansible variables can be defined here as well. Wheeee!
