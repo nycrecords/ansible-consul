@@ -112,7 +112,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         provisioner.add_host '10.1.42.220', ['consul2.consul']
         provisioner.add_host '10.1.42.230', ['consul3.consul']
     end
-    consul1_config.vm.provision "shell", inline: $script
+    consul2_config.vm.provision "shell", inline: $script
   end
   config.vm.define :consul3 do |consul3_config|
     consul3_config.vm.box = BOX_NAME
@@ -138,7 +138,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         provisioner.add_host '10.1.42.220', ['consul2.consul']
         provisioner.add_host '10.1.42.230', ['consul3.consul']
     end
-    consul1_config.vm.provision "shell", inline: $script
+    consul3_config.vm.provision "shell", inline: $script
     consul3_config.vm.provision :ansible do |ansible|
       ansible.raw_arguments = ["--connection=paramiko"]
       ansible.inventory_path = CLUSTER_HOSTS
